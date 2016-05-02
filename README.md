@@ -39,6 +39,6 @@ $server->loop(false);
 
 ## TODO
 - [ ] Unit Test
-- SocketIo
-- AsyncServer
-- Docs
+- [ ] SocketIo
+- [ ] AsyncServer
+- [ ] Docs
