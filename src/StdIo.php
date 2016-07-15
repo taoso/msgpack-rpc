@@ -15,6 +15,11 @@ class StdIo implements Io
         return fread($this->stdin, 1024);
     }
 
+    public function readLine()
+    {
+        return fgets($this->stdin);
+    }
+
     public function write($data)
     {
         return fwrite(STDOUT, $data);
