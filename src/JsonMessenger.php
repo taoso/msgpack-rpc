@@ -20,6 +20,6 @@ class JsonMessenger implements Messenger
 
     public function send($message)
     {
-        $this->io->write(json_encode($message));
+        $this->io->write(json_encode($message)."\n");
     }
 }

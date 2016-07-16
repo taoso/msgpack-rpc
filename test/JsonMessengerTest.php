@@ -17,7 +17,9 @@ class JsonMessengerTest extends TestCase
     public function testSend()
     {
         $io = m::mock(Io::class);
-        $io->shouldReceive('write')->with("[1,2,3]\n");
+        $io->shouldReceive('write')->andReturnUsing(function ($msg) {
+            $this->assertEquals("[1,2,3]\n", $msg);
+        });
         $messenger = new JsonMessenger($io);
         $messenger->send([1,2,3]);
     }
