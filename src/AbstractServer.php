@@ -26,7 +26,7 @@ trait AbstractServer
         $error = error_get_last();
         $error = sprintf('"%s at %s:%d"', $error['message'], $error['file'], $error['line']);
 
-        $response = [self::TYPE_RESPONSE, $this->current_msg_id, $error, null];
+        $response = array(self::TYPE_RESPONSE, $this->current_msg_id, $error, null);
         $this->write($response);
     }
 
@@ -55,11 +55,11 @@ trait AbstractServer
         $result = null;
         $error = null;
         if (method_exists($this->handler, $method)) {
-            $result = $this->doRequest([$this->handler, $method], $params);
+            $result = $this->doRequest(array($this->handler, $method), $params);
         } else {
             $error = 'method not exists';
         }
-        $response = [self::TYPE_RESPONSE, $msg_id, $error, $result];
+        $response = array(self::TYPE_RESPONSE, $msg_id, $error, $result);
         $this->write($response);
 
         $this->current_msg_id = null;
@@ -69,7 +69,7 @@ trait AbstractServer
     {
         list($type, $method, $params) = $message;
         if (method_exists($this->handler, $method)) {
-            $this->doRequest([$this->handler, $method], $params);
+            $this->doRequest(array($this->handler, $method), $params);
         }
     }
 
@@ -88,10 +88,10 @@ trait AbstractServer
     {
         if ($callback) {
             $msg_id = $this->getMessageId();
-            $message = [self::TYPE_REQUEST, $msg_id, $method, $params];
+            $message = array(self::TYPE_REQUEST, $msg_id, $method, $params);
             $this->addCallback($msg_id, $callback);
         } else {
-            $message = [self::TYPE_NOTIFICATION, $method, $params];
+            $message = array(self::TYPE_NOTIFICATION, $method, $params);
         }
 
         $this->write($message);

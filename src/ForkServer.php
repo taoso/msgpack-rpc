@@ -15,7 +15,7 @@ class ForkServer implements Server
         $this->messenger = $messenger;
         $this->setHandler($handler);
 
-        register_shutdown_function([$this, 'shutdown']);
+        register_shutdown_function(array($this, 'shutdown'));
     }
 
     public function loop($infinite = true)

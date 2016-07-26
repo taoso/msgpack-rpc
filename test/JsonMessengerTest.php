@@ -11,7 +11,7 @@ class JsonMessengerTest extends TestCase
         $io->shouldReceive('readLine')->andReturn("[1,2,3]\n");
         $messenger = new JsonMessenger($io);
         $msg = $messenger->next();
-        self::assertEquals([1,2,3], $msg);
+        self::assertEquals(array(1,2,3), $msg);
     }
 
     public function testSend()
@@ -21,6 +21,6 @@ class JsonMessengerTest extends TestCase
             $this->assertEquals("[1,2,3]\n", $msg);
         });
         $messenger = new JsonMessenger($io);
-        $messenger->send([1,2,3]);
+        $messenger->send(array(1,2,3));
     }
 }
