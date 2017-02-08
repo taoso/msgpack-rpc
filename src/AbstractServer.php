@@ -9,12 +9,12 @@ trait AbstractServer
 
     private $request_callback = [];
 
-    private $handler;
+    private $handlers;
 
     public function setHandler(Handler $handler)
     {
         $handler->setServer($this);
-        $this->handler = $handler;
+        $this->handlers[] = $handler;
     }
 
     public function shutdown()
@@ -53,11 +53,13 @@ trait AbstractServer
         $this->current_msg_id = $msg_id;
 
         $result = null;
-        $error = null;
-        if (method_exists($this->handler, $method)) {
-            $result = $this->doRequest(array($this->handler, $method), $params);
-        } else {
-            $error = 'method not exists';
+        $error = 'method not exists';
+        foreach ($this->handlers as $handler) {
+            if (method_exists($handler, $method)) {
+                $result = $this->doRequest(array($handler, $method), $params);
+                $error = null;
+                break;
+            }
         }
         $response = array(self::TYPE_RESPONSE, $msg_id, $error, $result);
         $this->write($response);
@@ -68,8 +70,10 @@ trait AbstractServer
     protected function onNotification($message)
     {
         list($type, $method, $params) = $message;
-        if (method_exists($this->handler, $method)) {
-            $this->doRequest(array($this->handler, $method), $params);
+        foreach ($this->handlers as $handler) {
+            if (method_exists($handler, $method)) {
+                $this->doRequest(array($handler, $method), $params);
+            }
         }
     }
 

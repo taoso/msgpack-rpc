@@ -7,6 +7,11 @@ interface Server
     const TYPE_RESPONSE = 1;
     const TYPE_NOTIFICATION = 2;
 
+    /**
+     * add handler
+     *
+     * call this method multiple will add multiple handlers
+     */
     function setHandler(Handler $handler);
 
     /**
