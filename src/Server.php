@@ -8,11 +8,18 @@ interface Server
     const TYPE_NOTIFICATION = 2;
 
     /**
-     * add handler
+     * set handler
      *
      * call this method multiple will add multiple handlers
      */
     function setHandler(Handler $handler);
+
+    /**
+     * add handler
+     *
+     * call this method multiple will add multiple handlers
+     */
+    function addHandler(Handler $handler);
 
     /**
      * @var string $method

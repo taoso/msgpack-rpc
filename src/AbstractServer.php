@@ -14,6 +14,12 @@ trait AbstractServer
     public function setHandler(Handler $handler)
     {
         $handler->setServer($this);
+        $this->handlers = [$handler];
+    }
+
+    public function addHandler(Handler $handler)
+    {
+        $handler->setServer($this);
         $this->handlers[] = $handler;
     }
 
