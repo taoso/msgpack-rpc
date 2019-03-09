@@ -17,7 +17,8 @@
         }
     },
     "require": {
-        "php": "^5.3||^7.0"
+        "php": "^5.3||^7.0",
+        "ext-msgpack": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.4",
